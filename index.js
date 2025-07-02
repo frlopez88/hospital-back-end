@@ -28,6 +28,40 @@ app.post('/patients', async(req, res) => {
 
 })
 
+app.put('/patients/:patient_id',  async(req, res)=>{
+
+    const patient_id = req.params.patient_id;
+
+    const body = req.body
+
+    const sql = `update hospital.patients
+                    set name = $1, 
+                        birth_date = $2
+                where patient_id = $3`;
+    
+    const parameters = [body.name, body.birth_date, patient_id]
+
+    const result = await pool.query(sql, parameters)
+
+    return res.json({message : "Object Updated"})
+
+} )
+
+app.delete('/patients/:patient_id',  async(req, res)=>{
+
+    const patient_id = req.params.patient_id;
+
+    const sql = `delete from hospital.patients
+                where patient_id = $1`;
+
+    const parameters =[patient_id]
+
+    const result = await pool.query(sql, parameters)
+
+    return res.json({message : "Object Removed"})
+
+} )
+
 const port = 4000;
 
 app.listen(port, () => {
