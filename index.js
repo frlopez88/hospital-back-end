@@ -62,7 +62,7 @@ app.delete('/patients/:patient_id',  async(req, res)=>{
 
 } )
 
-const port = 4000;
+const port = 80;
 
 app.listen(port, () => {
     console.log(`server listening in port ${port}`)
